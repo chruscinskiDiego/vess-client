@@ -1,0 +1,23 @@
+#root {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.my-toast {
+  border-radius: 8px;
+  padding: 12px;
+  color: #f2e2b3;
+  background: rgba(80, 27, 0, 0.66)
+}
+
+.my-toast-body {
+  font-weight: bold;
+  color: rgb(252, 11, 11);
+}
+
+.my-toast-prog {
+  background: #f2e2b3 !important;
+}
+
