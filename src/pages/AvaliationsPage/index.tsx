@@ -18,6 +18,10 @@ export const AvaliationsPage = () => {
         navigate('/avaliations-history');
     }
 
+    const handleNavigateToTutorial = () => {
+        navigate('/tutorial');
+    }
+
     const handleBackToMainMenu = () => {
         navigate('/home');
     }
@@ -85,7 +89,7 @@ export const AvaliationsPage = () => {
                 >
                     <VessButton variant="contained"  startIcon={<AddCircleOutlineIcon/>} onClick={handleNavigateToNewAvaliation} fullWidth sx={{paddingTop: '30px', paddingBottom:'30px'}}>Nova Avaliação</VessButton>
                     <VessButton variant="contained" startIcon={<HistoryIcon/>} onClick={handleNavigateToHistory} sx={{paddingTop: '30px', paddingBottom:'30px'}} fullWidth>Histórico</VessButton>
-                    <VessButton variant="contained" startIcon={<SchoolIcon/>} onClick={handleNavigateToHistory} sx={{paddingTop: '30px', paddingBottom:'30px'}} fullWidth>Tutorial</VessButton>
+                    <VessButton variant="contained" startIcon={<SchoolIcon/>} onClick={handleNavigateToTutorial} sx={{paddingTop: '30px', paddingBottom:'30px'}} fullWidth>Tutorial</VessButton>
                 </Box>
                 <Box alignContent='center' sx={{mt: 2}}>
 

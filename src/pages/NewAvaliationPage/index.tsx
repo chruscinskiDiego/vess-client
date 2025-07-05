@@ -27,7 +27,7 @@ export const NewAvaliation = () => {
         user_id: Number(userId),
         sample_avaliation: [],
     });
-    console.log('NEW AVALIATION USER ID:', userId);
+    
     const [sampleAvaliation, setSampleAvaliation] = useState<INewAvaliationSample[]>([]);
     const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -288,7 +288,6 @@ export const NewAvaliation = () => {
                                 scrollbarColor: 'rgba(0, 0, 0, 0.66) transparent',
                             }}>
 
-                            {/* amostra */}
                             {sampleAvaliation.map((sample, si) => (
                                 <Box key={si}
                                     sx={{
