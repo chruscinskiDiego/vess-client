@@ -2,6 +2,7 @@ export interface IWelcomeTutorial {
     title: string;
     description: string | React.ReactNode;
     imageUrl?: string;
+    videoUrl?: string;
 };
 
 export interface IAttributionsTutorial {

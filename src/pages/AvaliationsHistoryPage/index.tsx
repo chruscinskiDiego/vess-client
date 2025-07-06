@@ -46,8 +46,6 @@ export const AvaliationsHistory: React.FC = () => {
     navigate('/avaliations');
   };
 
-  console.log('paginated', paginated);
-
   return (
     <Box
       sx={{

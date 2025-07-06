@@ -24,10 +24,25 @@ export const WelcomeTutorialCard: React.FC<{ tutorial: IWelcomeTutorial }> = ({ 
                 {tutorial.description}
             </Typography>
             {tutorial.imageUrl && (
-                
+
                 <img src={tutorial.imageUrl} style={{ width: '100%', height: '80%', borderRadius: '8px' }} />
             )}
-            
+
+            {tutorial.videoUrl && (
+                <Box
+                    component="video"
+                    controls
+                    src={tutorial.videoUrl}
+                    sx={{
+                        width: '100%',
+                        maxHeight: 400,
+                        borderRadius: '8px',
+                        mt: 2,
+                        backgroundColor: 'black',
+                    }}
+                />
+            )}
+
         </Box>
     );
 }
