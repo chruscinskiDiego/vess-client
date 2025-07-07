@@ -1,54 +1,40 @@
-# React + TypeScript + Vite
+# VESS-CLIENT 🎨
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)](https://reactjs.org)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![MUI](https://img.shields.io/badge/MUI-007FFF?style=flat&logo=mui&logoColor=white)](https://mui.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Currently, two official plugins are available:
+## 📖 Sobre
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O **VESS-CLIENT** é a aplicação front-end desenvolvida com **React** e **Vite**, utilizando a biblioteca de componentes **MUI**, parte integrante do projeto **VESS** para a disciplina Programação Web Avançada da UTFPR. Este cliente fornece uma interface moderna e responsiva para interagir com a API **VESS-SERVER**, permitindo cadastros, visualização e manipulação de avaliações utilizando o método VESS.
 
-## Expanding the ESLint configuration
+## ✨ Tecnologias
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Framework:** React 18 + Vite 5
+- **Linguagem:** TypeScript
+- **Componentes de UI:** MUI (Material UI)
+- **Autenticação:** JWT + Google OAuth2 (via backend)
+- **Gerenciamento de Estado:** React Context & Hooks
+- **Validação de Formulários:** React Hook Form
+- **Ferramentas Adicionais:**
+  - React Router DOM
+  - Axios para requisições HTTP
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+
+## 🚧 Funcionalidades
+
+* Autenticação de usuários (login e registro)
+* CRUD completo de avaliações do método VESS
+* Upload de arquivos (imagens) para o backend
+* Feedback e notificações em tempo real
+* Navegação protegida via rotas privadas
+
+
+---
+
+*Desenvolvido por Diego Chruscinski de Souza para a disciplina Programação Web Avançada da UTFPR.*
+
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
