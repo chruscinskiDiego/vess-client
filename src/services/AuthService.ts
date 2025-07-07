@@ -1,6 +1,12 @@
 import type { ISignIn, ISignUp } from "../interfaces/user.interfaces";
 import { api } from "../lib/axios";
+
+export interface IGoogleToken {
+  idToken: string;
+}
+
 export const signIn = async (data: ISignIn) => {
+
   try {
 
     const response = await api.post('/auth/login', data);
@@ -40,4 +46,28 @@ export const logout = () => {
   localStorage.removeItem('userId');
   delete api.defaults.headers.common['Authorization'];
   location.reload();
+};
+
+
+
+export const signInWithGoogle = async (googleToken: IGoogleToken) => {
+  try {
+    const response = await api.post('/auth/google', googleToken);
+    const { accessToken, userId } = response.data;
+
+    if (!accessToken || !userId) {
+      throw new Error('Authentication failed: Missing token or user ID');
+    }
+
+    localStorage.setItem('token', accessToken);
+    localStorage.setItem('userId', String(userId));
+    api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    window.dispatchEvent(
+      new CustomEvent('userLoggedIn', { detail: { userId } })
+    );
+
+    return response;
+  } catch (error: any) {
+    return error.response;
+  }
 };

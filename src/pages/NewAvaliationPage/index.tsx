@@ -12,6 +12,7 @@ import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 import { notifyError, notifySuccess, notifyWarning } from '../../components/Toasts';
 import { UserContext } from '../../contexts/UserContext';
 import { api } from '../../lib/axios';
+import InsightsIcon from '@mui/icons-material/Insights';
 
 
 export const NewAvaliation = () => {
@@ -32,6 +33,7 @@ export const NewAvaliation = () => {
     const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [aiHelping, setAiHelping] = useState<boolean>(false);
 
     // utils
 
@@ -53,6 +55,36 @@ export const NewAvaliation = () => {
             }]);
         }
     };
+
+    const handleIaHelp = async () => {
+
+        try {
+
+            setAiHelping(true);
+
+            const payload = {
+                prompt: avaliation.infos
+            }
+
+            const response = await api.post('/ai-helper', payload);
+
+            const message: string = response?.data?.message;
+
+            setAvaliation(prev => ({
+                ...prev,
+                infos: message
+            }));
+        }
+        catch (error: any) {
+
+            console.error(error.message);
+
+        }finally{
+
+            setAiHelping(false);
+
+        }
+    }
 
     // sample handlers
     const handleAddSample = () => {
@@ -434,7 +466,6 @@ export const NewAvaliation = () => {
                                 </Box>
                             ))}
 
-                            {/* avaliacao */}
                             <Box
                                 sx={{
                                     mb: 2,
@@ -443,17 +474,40 @@ export const NewAvaliation = () => {
                                     gap: 2,
                                 }}
                             >
-                                <VessTextField
-                                    name="infos"
-                                    label="Informações Importantes"
-                                    value={avaliation.infos}
-                                    onChange={handleAvaliationChange}
-                                    multiline
-                                    rows={3}
+                                <Box
                                     sx={{
                                         gridColumn: { xs: 'span 1', sm: 'span 2' },
+                                        position: 'relative',
                                     }}
-                                />
+                                >
+                                    <VessTextField
+                                        name="infos"
+                                        label="Informações Importantes"
+                                        value={avaliation.infos}
+                                        onChange={handleAvaliationChange}
+                                        multiline
+                                        rows={3}
+                                        sx={{}}
+                                        disabled={aiHelping}
+                                    />
+
+                                    {avaliation.infos.length > 10 && (
+                                        <IconButton
+                                            size="small"
+                                            onClick={handleIaHelp}
+                                            sx={{
+                                                position: 'absolute',
+                                                top: 8,
+                                                right: 8,
+                                                bgcolor: 'rgba(0,0,0,0.05)',
+                                                '&:hover': { bgcolor: 'rgba(0,0,0,0.1)' },
+                                                opacity: 0.6,
+                                            }}
+                                        >
+                                            <InsightsIcon fontSize="small" />
+                                        </IconButton>
+                                    )}
+                                </Box>
 
                                 <Box
                                     sx={{

@@ -5,8 +5,9 @@ import { VessButton } from '../../components/VessButton';
 import { useNavigate } from 'react-router-dom';
 import { notifyError, notifySuccess } from '../../components/Toasts';
 import type { ISignIn } from '../../interfaces/user.interfaces';
-import { signIn } from '../../services/AuthService';
+import { signIn, signInWithGoogle } from '../../services/AuthService';
 import { UserContext } from '../../contexts/UserContext';
+import { GoogleLogin } from '@react-oauth/google';
 
 
 
@@ -156,6 +157,30 @@ export const LoginPage = () => {
           >
             Entrar
           </VessButton>
+          <Box alignContent='center' alignItems='center' marginLeft='auto' marginRight='auto'>
+            <GoogleLogin
+              onSuccess={credentialResponse => {
+                if (!credentialResponse.credential) {
+                  notifyError('Falha ao receber credencial Google');
+                  return;
+                }
+                signInWithGoogle({ idToken: credentialResponse.credential })
+                  .then(res => {
+                    if (res.status === 200) {
+                      notifySuccess('Logado com Google!');
+                      setIsAuthenticated(true);
+                      navigate('/home');
+                    } else {
+                      notifyError('Erro no login Google');
+                    }
+                  })
+                  .catch(() => notifyError('Erro inesperado ao logar com Google'));
+              }}
+              onError={() => {
+                notifyError('Login Google cancelado ou falhou');
+              }}
+            />
+          </Box>
 
           <Typography onClick={handleRedirectToRegister} variant="body2" sx={{ textAlign: 'center', cursor: 'pointer' }}>
             Não possui uma conta? Registre-se
