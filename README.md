@@ -35,6 +35,3 @@ O **VESS-CLIENT** é a aplicação front-end desenvolvida com **React** e **Vite
 ---
 
 *Desenvolvido por Diego Chruscinski de Souza para a disciplina Programação Web Avançada da UTFPR.*
-
-```
-```
