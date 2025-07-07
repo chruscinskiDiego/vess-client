@@ -12,7 +12,7 @@ O **VESS-CLIENT** é a aplicação front-end desenvolvida com **React** e **Vite
 
 ## ✨ Tecnologias
 
-- **Framework:** React 18 + Vite 5
+- **Framework:** React 19 + Vite 6
 - **Linguagem:** TypeScript
 - **Componentes de UI:** MUI (Material UI)
 - **Autenticação:** JWT + Google OAuth2 (via backend)
