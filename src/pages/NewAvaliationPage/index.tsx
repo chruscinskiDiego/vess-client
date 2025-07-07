@@ -22,12 +22,12 @@ export const NewAvaliation = () => {
     const [avaliation, setAvaliation] = useState<INewAvaliation>({
         description: '',
         management_decision: 'later',
-        summary: 'later',
+        summary: '',
         infos: '',
         user_id: Number(userId),
         sample_avaliation: [],
     });
-    
+
     const [sampleAvaliation, setSampleAvaliation] = useState<INewAvaliationSample[]>([]);
     const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -64,6 +64,12 @@ export const NewAvaliation = () => {
 
     const handleRemoveSample = (index: number) => {
         setSampleAvaliation(prev => prev.filter((_, i) => i !== index));
+    };
+
+    const calculateVessScore = (layers: INewAvaliationSampleLayer[]) => {
+        const totalWeight = layers.reduce((sum, l) => sum + l.length, 0) || 1;
+        const weightedSum = layers.reduce((sum, l) => sum + l.length * l.note, 0);
+        return weightedSum / totalWeight;
     };
 
     const handleSampleChange = (
@@ -169,7 +175,13 @@ export const NewAvaliation = () => {
 
         });
 
-        const payload = { ...avaliation, sample_avaliation: sampleAvaliation };
+        const payload: INewAvaliation = {
+            ...avaliation,
+            sample_avaliation: sampleAvaliation.map(s => ({
+                ...s,
+                score: calculateVessScore(s.sample_layers)
+            }))
+        };
 
         try {
 

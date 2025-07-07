@@ -31,7 +31,7 @@ export const AvaliationsHistory: React.FC = () => {
   const filtered = useMemo(() => {
     return avaliations.filter((item) =>
       item.description.toLowerCase().includes(filter.toLowerCase()) ||
-      item.summary.toLowerCase().includes(filter.toLowerCase())
+      item.infos.toLowerCase().includes(filter.toLowerCase())
     );
   }, [filter, avaliations]);
 
@@ -44,6 +44,10 @@ export const AvaliationsHistory: React.FC = () => {
 
   const handleBackToAvaliationsMenu = () => {
     navigate('/avaliations');
+  };
+
+  const handleNavigateToAvaliation = (idAvaliation:any) => {
+    navigate(`/avaliation/${idAvaliation}`);
   };
 
   return (
@@ -126,9 +130,10 @@ export const AvaliationsHistory: React.FC = () => {
               key={item.id_avaliation}
               id_avaliation={item.id_avaliation}
               title={item.description}
-              summary={item.summary}
+              summary={item.infos}
               imageLink={item.file_link}
-              date={item.created_at}
+              date={new Date(item.created_at).toLocaleString()}
+              handleClickHistoryById={handleNavigateToAvaliation}
             />
           ))}
         </Box>

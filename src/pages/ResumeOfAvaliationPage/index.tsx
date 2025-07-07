@@ -39,13 +39,13 @@ export const ResumeOfAvaliation = () => {
 
     const getAvaliationResume = useCallback(async () => {
         try {
-            const { data } = await api.get(`/avaliation/${id}`);
 
-            // ✅ pega o array correto
+            const { data } = await api.get(`/avaliation/${id}`);
+  
             const rawSamples = data.sampleAvaliations ?? [];
 
             const formattedSamples = rawSamples.map((s: any) => {
-                // 1) converte a string para número
+
                 const score = parseFloat(s.score);
 
                 let managementDecision: string;
@@ -68,8 +68,6 @@ export const ResumeOfAvaliation = () => {
 
                 });
 
-                //console.log('LAYER' + JSON.stringify(layers));
-
                 return {
                     id: s.id_sample,
                     name: s.name,
@@ -80,7 +78,7 @@ export const ResumeOfAvaliation = () => {
                 };
             });
 
-            const generalResume = `${data.sampleAvaliations.length} amostras | Data e hora das avaliações: ${data.created_at}`
+            const generalResume = `${data.sampleAvaliations.length} amostras | Data e hora das avaliações: ${new Date(data.created_at).toLocaleString()}`
 
             setResumeOfAvaliation({
                 title: data.description,
@@ -181,7 +179,7 @@ export const ResumeOfAvaliation = () => {
                     />
 
                     <Box>
-                        {resumeOfAvaliation.samples.map(item => (
+                        {resumeOfAvaliation.samples.map((item, index) => (
                             <Box
                                 key={item.id}
                                 sx={{
@@ -194,7 +192,7 @@ export const ResumeOfAvaliation = () => {
                                 }}
                             >
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                                    <Typography>Amostra #{item.id}</Typography>
+                                    <Typography>Amostra #{index + 1}</Typography>
                                     <Typography
                                         fontWeight="bold"
                                         sx={{

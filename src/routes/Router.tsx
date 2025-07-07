@@ -11,6 +11,7 @@ import { AvaliationsHistory } from "../pages/AvaliationsHistoryPage"
 import { NewAvaliation } from "../pages/NewAvaliationPage"
 import { ResumeOfAvaliation } from "../pages/ResumeOfAvaliationPage"
 import { TutorialPage } from "../pages/TutorialPage"
+import { AvaliationById } from "../pages/AvaliationById"
 
 export const Router: React.FC = () => {
     const { isAuthenticated } = useContext(UserContext)!;
@@ -39,6 +40,8 @@ export const Router: React.FC = () => {
                     <Route path="/avaliations" element={<AvaliationsPage/>}/>
 
                     <Route path="/avaliations-history" element={<AvaliationsHistory/>}/>
+
+                    <Route path="/avaliation/:id" element={<AvaliationById/>}/>
 
                     <Route path="/new-avaliation" element={<NewAvaliation/>}/>
 

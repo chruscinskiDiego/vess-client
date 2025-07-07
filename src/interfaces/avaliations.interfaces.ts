@@ -1,7 +1,7 @@
 export interface IAvaliationHistory {
     id_avaliation: number;
     description: string;
-    summary: string;
+    infos: string;
     file_link?: string;
     created_at: string;
 }
