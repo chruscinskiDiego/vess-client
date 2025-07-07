@@ -1,41 +1,113 @@
 import { Box, TextField, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { VessButton } from "../../components/VessButton";
+import { VessTextField } from "../../components/VessTextField";
+import { useCallback, useEffect, useState } from "react";
+import { api } from "../../lib/axios";
+import AddIcon from '@mui/icons-material/Add';
+import DoneIcon from '@mui/icons-material/Done';
 
 export const ResumeOfAvaliation = () => {
+
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
-    const resume = {
-        title: `Avaliação de Exemplo ${id}`,
-        management_decision: 'Aguardando decisão',
-        summary: 'Esta é uma avaliação de exemplo para demonstrar o layout.',
-        scores: [
-            { id: 1, score: 85 },
-            { id: 2, score: 90 },
-            { id: 3, score: 78 },
-            { id: 4, score: 92 },
-            { id: 5, score: 88 }
-        ]
+    type Sample = {
+        id: number;
+        score: string;
+        scoreColor: string;
+        managementDecision: string;
+        resume: string;
     };
 
-    //utils
-
-    const handleNavigateToAvaliations = () => {
-
-        navigate('/avaliations');
-
+    type ResumeOfAvaliationType = {
+        title: string;
+        summary: string;
+        infos: string;
+        generalResume: string;
+        samples: Sample[];
     };
 
-    const handleNavigateToNewAvaliation = () => {
+    const [resumeOfAvaliation, setResumeOfAvaliation] = useState<ResumeOfAvaliationType>({
+        title: '',
+        summary: '',
+        infos: '',
+        generalResume: '',
+        samples: []
+    });
 
-        navigate('/new-avaliation');
 
-    };
+    const getAvaliationResume = useCallback(async () => {
+        try {
+            const { data } = await api.get(`/avaliation/${id}`);
 
+            // ✅ pega o array correto
+            const rawSamples = data.sampleAvaliations ?? [];
+
+            const formattedSamples = rawSamples.map((s: any) => {
+                // 1) converte a string para número
+                const score = parseFloat(s.score);
+
+                let managementDecision: string;
+                let scoreColor: string;
+
+                if (score <= 2.9) {
+                    managementDecision = `Amostras (0-25 cm de profundidade) com escores Qe‑VESS entre 1–2,9 indicam um solo com boa qualidade estrutural e não requerem mudanças no manejo.`;
+                    scoreColor = '#4CAF50';
+                } else if (score >= 3 && score <= 3.9) {
+                    managementDecision = `Amostras (0-25 cm de profundidade) com escores Qe‑VESS entre 3‑3,9 indicam um solo com qualidade estrutural razoável que pode ser melhorado.`;
+                    scoreColor = '#FF9800';
+                } else {
+                    managementDecision = `Amostras (0-25 cm de profundidade) ou camadas com escores Qe‑VESS entre 4–5 sugerem danos às funções do solo, comprometendo sua capacidade de suporte ao crescimento, desenvolvimento e produção das culturas.`;
+                    scoreColor = '#F44336';
+                }
+
+                const resume = s.layers.map((layer: any, index: any) => {
+
+                    return ` Comprimento camada ${index + 1}: ${layer.length} cm; Nota ${layer.note}`
+
+                });
+
+                //console.log('LAYER' + JSON.stringify(layers));
+
+                return {
+                    id: s.id_sample,
+                    name: s.name,
+                    score: score.toFixed(2),
+                    managementDecision,
+                    scoreColor,
+                    resume
+                };
+            });
+
+            const generalResume = `${data.sampleAvaliations.length} amostras | Data e hora das avaliações: ${data.created_at}`
+
+            setResumeOfAvaliation({
+                title: data.description,
+                summary: data.summary,
+                infos: data.infos,
+                generalResume: generalResume,
+                samples: formattedSamples,
+            });
+
+        } catch (err) {
+            console.error('Erro ao buscar avaliação:', err);
+        }
+    }, [id]);
+
+
+    useEffect(() => {
+        getAvaliationResume();
+    }, [getAvaliationResume]);
+
+
+    const handleNavigateToAvaliations = () => navigate('/avaliations');
+    const handleNavigateToNewAvaliation = () => navigate('/new-avaliation');
+
+    // media de scores
     const averageScore =
-        resume.scores.reduce((sum, item) => sum + item.score, 0) /
-        resume.scores.length;
+        resumeOfAvaliation.samples.reduce((sum, item) => sum + parseFloat(item.score), 0) /
+        resumeOfAvaliation.samples.length;
 
     return (
         <Box
@@ -60,7 +132,7 @@ export const ResumeOfAvaliation = () => {
                     boxShadow: 3,
                     p: { xs: 2, sm: 4, md: 10 },
                     color: 'white',
-                    justifyContent: 'space-between',
+                    justifyContent: 'space-between'
                 }}
             >
                 <Box
@@ -78,25 +150,30 @@ export const ResumeOfAvaliation = () => {
                             borderRadius: '4px'
                         },
                         '&::-webkit-scrollbar-thumb:hover': { backgroundColor: 'black' },
-                        scrollbarColor: 'rgba(0, 0, 0, 0.66) transparent',
+                        scrollbarColor: 'rgba(0, 0, 0, 0.66) transparent'
                     }}
                 >
-                    {/* Título */}
+
                     <Typography variant="h4" component="h1">
-                        {resume.title}
+                        {resumeOfAvaliation.title}
                     </Typography>
 
-                    {/* Campos de texto somente leitura */}
-                    <TextField
-                        label="Decisão de Gestão"
-                        value={resume.management_decision}
+                    <VessTextField
+                        label="Informações"
+                        disabled={true}
+                        value={resumeOfAvaliation.infos}
                         fullWidth
+                        multiline
                         variant="filled"
                         sx={{ backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 1 }}
+                        InputProps={{ readOnly: true }}
                     />
-                    <TextField
-                        label="Sumário"
-                        value={resume.summary}
+
+
+                    <VessTextField
+                        label="Resumo Geral"
+                        disabled={true}
+                        value={resumeOfAvaliation.generalResume}
                         fullWidth
                         multiline
                         variant="filled"
@@ -104,39 +181,68 @@ export const ResumeOfAvaliation = () => {
                     />
 
                     <Box>
-                        {resume.scores.map(item => (
+                        {resumeOfAvaliation.samples.map(item => (
                             <Box
                                 key={item.id}
                                 sx={{
                                     display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
+                                    flexDirection: 'column',
                                     p: 1,
                                     mb: 1,
                                     backgroundColor: 'rgba(255,255,255,0.2)',
                                     borderRadius: 1
                                 }}
                             >
-                                <Typography>Amostra #{item.id}</Typography>
-                                <Typography fontWeight="bold">{item.score}</Typography>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                                    <Typography>Amostra #{item.id}</Typography>
+                                    <Typography
+                                        fontWeight="bold"
+                                        sx={{
+                                            backgroundColor: item.scoreColor,
+                                            px: '5px',
+                                            color: 'black',
+                                            borderRadius: '20px'
+                                        }}
+                                    >
+                                        {item.score}
+                                    </Typography>
+                                </Box>
+
+                                <TextField
+                                    label="Decisão de Manejo"
+                                    value={item.managementDecision}
+                                    fullWidth
+                                    multiline
+                                    variant="filled"
+                                    sx={{ backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 1 }}
+                                    InputProps={{ readOnly: true }}
+                                    disabled={true}
+                                />
+                                <TextField
+                                    label="Resumo da avaliação"
+                                    value={item.resume}
+                                    fullWidth
+                                    multiline
+                                    variant="filled"
+                                    sx={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', borderRadius: 1, mt: 2}}
+                                    disabled={true}
+                                />
                             </Box>
                         ))}
-                    </Box>
-
-                    {/* Score médio */}
-                    <Box sx={{ mt: 2, textAlign: 'right' }}>
-                        <Typography variant="h6">
-                            Score Médio: {averageScore.toFixed(2)}
-                        </Typography>
-                    </Box>
                 </Box>
 
-                <Box display={'flex'} justifyContent="space-between" mt={2}>
-                    <VessButton onClick={handleNavigateToAvaliations}>Finalizar</VessButton>
-                    <VessButton onClick={handleNavigateToNewAvaliation}>Nova Avaliação</VessButton>
+                <Box sx={{ mt: 2, textAlign: 'right' }}>
+                    <Typography variant="h6">
+                        Score Médio: {averageScore.toFixed(2)}
+                    </Typography>
                 </Box>
+            </Box>
 
+            <Box display="flex" justifyContent="space-between" mt={2}>
+                <VessButton onClick={handleNavigateToAvaliations} sx={{px: 2}} startIcon={<DoneIcon/>}>Finalizar</VessButton>
+                <VessButton onClick={handleNavigateToNewAvaliation} sx={{px: 2}} startIcon={<AddIcon/>}>Nova Avaliação</VessButton>
             </Box>
         </Box>
+        </Box >
     );
 };
