@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { AboutPage } from "../pages/AboutPage"
 import { LoginPage } from "../pages/LoginPage"
 import { RegisterPage } from "../pages/RegisterPage"
 import { useContext } from "react"
@@ -21,7 +20,7 @@ export const Router: React.FC = () => {
 
             {!isAuthenticated && (
                 <>
-                    <Route path="/" element={<AboutPage />} />
+                    <Route path="/" element={<LoginPage/>} />
                     <Route path="/signin" element={<LoginPage />} />
                     <Route path="/signup" element={<RegisterPage />} />
                     <Route path="*" element={<Navigate to="/" replace />} />

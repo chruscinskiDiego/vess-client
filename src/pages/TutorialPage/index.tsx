@@ -30,18 +30,16 @@ export const TutorialPage: React.FC = () => {
         if (scrollTop < 1500) {
             setTutorialName("VESS");
         }
-        else if (scrollTop > 1500 && scrollTop < 4400) {
+        else if (scrollTop > 1500 && scrollTop < 4800) {
             setTutorialName("Atribuição dos escores VESS");
         }
-        else if (scrollTop > 4300 && scrollTop < 5100) {
+        else if (scrollTop > 4800 && scrollTop < 5700) {
             setTutorialName("Decisão de manejo");
         }
-        else if (scrollTop > 5100) {
+        else if (scrollTop > 5700) {
             setTutorialName("Informações complementares");
         }
     }, [scrollTop]);
-
-    //console.log("Scroll Top:", scrollTop);
 
     const welcomeTutorialObject: IWelcomeTutorial[] = [
         {
@@ -68,6 +66,7 @@ export const TutorialPage: React.FC = () => {
         {
             title: "Equipamentos",
             description: "Pá reta de aproximadamente 25 cm de largura e 22-25 cm de comprimento, trena ou régua de 30 cm. Opcional: folha plástica de cor clara ou bandeja 50 x 80 cm.",
+            imageUrl: "https://vess-bucket.s3.sa-east-1.amazonaws.com/Tutorial/tools.gif"
         },
         {
             title: "Onde amostrar:",
@@ -84,7 +83,8 @@ export const TutorialPage: React.FC = () => {
             description: `Abra uma pequena tricheira cavando somente em lados opostos, reservando os outros dois lados para a retirada da amostra de solo. 
             Retire uma amostra de 10 a 15 cm de espessura, 20 cm de largura e aprox. 25 cm de profundidade. Acomode a amostra no chão. Meça o comprimento (profundidade) da amostra. 
             (É possível retirar menores profundidades, mas evite amostrar profundidades maiores que 25 cm, para isso utilize o SubVESS (Ball et al., 2015).`,
-            videoUrl: "https://vess-bucket.s3.sa-east-1.amazonaws.com/Tutorial/swap+side.mp4"
+            //videoUrl: "https://vess-bucket.s3.sa-east-1.amazonaws.com/Tutorial/swap+side.mp4"
+            imageUrl: "https://vess-bucket.s3.sa-east-1.amazonaws.com/Tutorial/swapslice.gif"
         },
         {
             title: "Exposição dos Agregados",
