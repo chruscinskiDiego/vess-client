@@ -158,7 +158,6 @@ export const ResumeOfAvaliation = () => {
 
                     <VessTextField
                         label="Informações"
-                        disabled={true}
                         value={resumeOfAvaliation.infos}
                         fullWidth
                         multiline
@@ -170,12 +169,12 @@ export const ResumeOfAvaliation = () => {
 
                     <VessTextField
                         label="Resumo Geral"
-                        disabled={true}
                         value={resumeOfAvaliation.generalResume}
                         fullWidth
                         multiline
                         variant="filled"
                         sx={{ backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 1 }}
+                        InputProps={{ readOnly: true }}
                     />
 
                     <Box>
@@ -214,7 +213,6 @@ export const ResumeOfAvaliation = () => {
                                     variant="filled"
                                     sx={{ backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 1 }}
                                     InputProps={{ readOnly: true }}
-                                    disabled={true}
                                 />
                                 <TextField
                                     label="Resumo da avaliação"
@@ -223,7 +221,6 @@ export const ResumeOfAvaliation = () => {
                                     multiline
                                     variant="filled"
                                     sx={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', borderRadius: 1, mt: 2}}
-                                    disabled={true}
                                 />
                             </Box>
                         ))}

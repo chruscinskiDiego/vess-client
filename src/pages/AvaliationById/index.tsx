@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { VessButton } from '../../components/VessButton';
 import { VessTextField } from '../../components/VessTextField';
 import { api } from '../../lib/axios';
+import { CircularLoader } from '../../components/CircularLoader';
 
 interface Layer {
     id_layer: number;
@@ -58,7 +59,7 @@ export const AvaliationById: React.FC = () => {
     }, [fetchAvaliation]);
 
     if (!avaliation) {
-        return <Typography>Carregando avaliação...</Typography>;
+        return <CircularLoader />
     }
 
     return (
@@ -87,13 +88,13 @@ export const AvaliationById: React.FC = () => {
                     color: 'white',
                     overflowY: 'auto',
                     '&::-webkit-scrollbar': { width: '10px' },
-                        '&::-webkit-scrollbar-track': { background: 'transparent' },
-                        '&::-webkit-scrollbar-thumb': {
-                            backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                            borderRadius: '4px'
-                        },
-                        '&::-webkit-scrollbar-thumb:hover': { backgroundColor: 'black' },
-                        scrollbarColor: 'rgba(0, 0, 0, 0.66) transparent'
+                    '&::-webkit-scrollbar-track': { background: 'transparent' },
+                    '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: 'rgba(0, 0, 0, 0.08)',
+                        borderRadius: '4px'
+                    },
+                    '&::-webkit-scrollbar-thumb:hover': { backgroundColor: 'black' },
+                    scrollbarColor: 'rgba(0, 0, 0, 0.66) transparent'
                 }}
             >
 
@@ -105,7 +106,7 @@ export const AvaliationById: React.FC = () => {
                         justifyContent: 'space-between'
                     }}
                 >
-                   
+
                     <Box sx={{ textAlign: 'center' }}>
                         <Typography
                             variant="h3"
@@ -237,7 +238,7 @@ export const AvaliationById: React.FC = () => {
                     <Typography variant="subtitle2">
                         Criado em: {new Date(avaliation.created_at).toLocaleString()}
                     </Typography>
-                     <VessButton onClick={() => navigate(-1)} sx={{ px: 2, mt: 2 }}>
+                    <VessButton onClick={() => navigate(-1)} sx={{ px: 2, mt: 2 }}>
                         Voltar
                     </VessButton>
 

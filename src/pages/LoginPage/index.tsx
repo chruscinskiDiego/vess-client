@@ -40,7 +40,7 @@ export const LoginPage = () => {
 
         setIsAuthenticated(true);
 
-        navigate('/home');
+        setTimeout(() => navigate('/tutorial', { replace: true }), 0);
 
       } else {
 
@@ -169,7 +169,7 @@ export const LoginPage = () => {
                     if (res.status === 200) {
                       notifySuccess('Logado com Google!');
                       setIsAuthenticated(true);
-                      navigate('/home');
+                      setTimeout(() => navigate('/tutorial', { replace: true }), 0);
                     } else {
                       notifyError('Erro no login Google');
                     }
