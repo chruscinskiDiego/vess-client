@@ -6,32 +6,38 @@
 [![MUI](https://img.shields.io/badge/MUI-007FFF?style=flat&logo=mui&logoColor=white)](https://mui.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## 📖 Sobre
+## 📖 About
 
-O **VESS-CLIENT** é a aplicação front-end desenvolvida com **React** e **Vite**, utilizando a biblioteca de componentes **MUI**, parte integrante do projeto **VESS** para a disciplina Programação Web Avançada da UTFPR. Este cliente fornece uma interface moderna e responsiva para interagir com a API **VESS-SERVER**, permitindo cadastros, visualização e manipulação de avaliações utilizando o método VESS.
+**VESS-CLIENT** is the front-end application built with **React** and **Vite**, using **MUI (Material UI)** as the component library.  
+It is part of the **VESS** project for the **Advanced Web Programming** course at UTFPR.
 
-## ✨ Tecnologias
-
-- **Framework:** React 19 + Vite 6
-- **Linguagem:** TypeScript
-- **Componentes de UI:** MUI (Material UI)
-- **Autenticação:** JWT + Google OAuth2 (via backend)
-- **Gerenciamento de Estado:** React Context & Hooks
-- **Validação de Formulários:** React Hook Form
-- **Ferramentas Adicionais:**
-  - React Router DOM
-  - Axios para requisições HTTP
-
-
-## 🚧 Funcionalidades
-
-* Autenticação de usuários (login e registro)
-* CRUD completo de avaliações do método VESS
-* Upload de arquivos (imagens) para o backend
-* Feedback e notificações em tempo real
-* Navegação protegida via rotas privadas
-
+This client provides a modern and responsive interface to interact with the **VESS-SERVER** API, allowing users to register/login, and create, view, and manage evaluations based on the **VESS method**.
 
 ---
 
-*Desenvolvido por Diego Chruscinski de Souza para a disciplina Programação Web Avançada da UTFPR.*
+## ✨ Tech stack
+
+- **Framework:** React 19 + Vite 6
+- **Language:** TypeScript
+- **UI Components:** MUI (Material UI)
+- **Authentication:** JWT + Google OAuth2 (handled by the backend)
+- **State management:** React Context + Hooks
+- **Forms & validation:** React Hook Form
+- **Additional tools:**
+  - React Router DOM
+  - Axios (HTTP requests)
+
+---
+
+## 🚧 Features
+
+- User authentication (login and registration)
+- Full CRUD for VESS method evaluations
+- File upload support (images) via the backend
+- Real-time UI feedback and notifications
+- Protected navigation using private routes
+
+---
+
+
+_Developed by Diego Chruscinski de Souza for the Advanced Web Programming course at UTFPR._
