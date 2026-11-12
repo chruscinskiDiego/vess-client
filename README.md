@@ -4,7 +4,6 @@
 [![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![MUI](https://img.shields.io/badge/MUI-007FFF?style=flat&logo=mui&logoColor=white)](https://mui.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## 📖 About
 
@@ -22,7 +21,6 @@ This client provides a modern and responsive interface to interact with the **VE
 - **UI Components:** MUI (Material UI)
 - **Authentication:** JWT + Google OAuth2 (handled by the backend)
 - **State management:** React Context + Hooks
-- **Forms & validation:** React Hook Form
 - **Additional tools:**
   - React Router DOM
   - Axios (HTTP requests)
@@ -41,3 +39,34 @@ This client provides a modern and responsive interface to interact with the **VE
 
 
 _Developed by Diego Chruscinski de Souza for the Advanced Web Programming course at UTFPR._
+
+---
+
+## Local setup
+
+Run the [VESS API](https://github.com/chruscinskiDiego/vess-server) first, then:
+
+```bash
+npm ci
+cp .env.example .env
+# Set the API URL and your Google OAuth client ID.
+npm run dev
+```
+
+The backend currently permits the frontend origin http://localhost:5173. Keep client and server URLs aligned when changing ports. Variables prefixed with VITE_ are bundled into the browser application; do not place server secrets in them.
+
+## Project structure
+
+- `src/pages/`: evaluation, history, configuration and authentication screens.
+- `src/components/`: shared interface components.
+- `src/contexts/`: current user state.
+- `src/lib/axios.ts`: API address, token handling and unauthorized responses.
+
+## Available checks
+
+```bash
+npm run build
+npm run lint
+```
+
+The current dependency manifest does not include React Hook Form; form handling should be checked in each screen. There is no LICENSE file in the repository.
